@@ -30,7 +30,7 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCardWidget(
-                    onPress: () {
+                    onPressed: () {
                       setState(() {
                         femaleColor = inactiveCardColor;
                         maleColor == activeCardColor
@@ -42,12 +42,12 @@ class _InputPageState extends State<InputPage> {
                       iconName: FontAwesomeIcons.mars,
                       label: 'MALE',
                     ),
-                    colour: maleColor,
+                    colour: maleColor == null ? inactiveCardColor : maleColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCardWidget(
-                    onPress: () {
+                    onPressed: () {
                       setState(() {
                         maleColor = inactiveCardColor;
                         femaleColor == activeCardColor
@@ -59,7 +59,8 @@ class _InputPageState extends State<InputPage> {
                       iconName: FontAwesomeIcons.venus,
                       label: 'FEMALE',
                     ),
-                    colour: femaleColor,
+                    colour:
+                        femaleColor == null ? inactiveCardColor : femaleColor,
                   ),
                 ),
               ],

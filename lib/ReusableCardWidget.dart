@@ -5,15 +5,13 @@ enum Gender { male, female }
 class ReusableCardWidget extends StatelessWidget {
   final Color colour;
   final Widget cardChild;
-  final Function onPress;
-  ReusableCardWidget({@required this.colour, this.cardChild, this.onPress});
+  final Function onPressed;
+  ReusableCardWidget({@required this.colour, this.cardChild, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onPress;
-      },
+      onTap: onPressed,
       child: Container(
         child: cardChild,
         margin: EdgeInsets.all(15),
