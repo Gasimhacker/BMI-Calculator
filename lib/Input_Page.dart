@@ -1,10 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'IconContent.dart';
+import 'ReusableCardWidget.dart';
 
 const bottomContainerHeight = 80.0;
-const containerColor = Color(0xFF1D1E33);
+const inactiveCardColor = Color(0xff111328);
+const activeCardColor = Color(0xFF1D1E33);
 const bottomContainerColor = Color(0xFFEB1555);
+Color maleColor;
+Color femaleColor;
 
 class InputPage extends StatefulWidget {
   @override
@@ -26,20 +30,36 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCardWidget(
-                    cardChild: cardChildColumn(
+                    onPress: () {
+                      setState(() {
+                        femaleColor = inactiveCardColor;
+                        maleColor == activeCardColor
+                            ? maleColor = inactiveCardColor
+                            : maleColor = activeCardColor;
+                      });
+                    },
+                    cardChild: IconContent(
                       iconName: FontAwesomeIcons.mars,
-                      text: 'MALE',
+                      label: 'MALE',
                     ),
-                    colour: containerColor,
+                    colour: maleColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCardWidget(
-                    cardChild: cardChildColumn(
+                    onPress: () {
+                      setState(() {
+                        maleColor = inactiveCardColor;
+                        femaleColor == activeCardColor
+                            ? femaleColor = inactiveCardColor
+                            : femaleColor = activeCardColor;
+                      });
+                    },
+                    cardChild: IconContent(
                       iconName: FontAwesomeIcons.venus,
-                      text: 'FEMALE',
+                      label: 'FEMALE',
                     ),
-                    colour: containerColor,
+                    colour: femaleColor,
                   ),
                 ),
               ],
@@ -47,7 +67,7 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableCardWidget(
-              colour: containerColor,
+              colour: inactiveCardColor,
             ),
           ),
           Expanded(
@@ -55,12 +75,12 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCardWidget(
-                    colour: containerColor,
+                    colour: inactiveCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReusableCardWidget(
-                    colour: containerColor,
+                    colour: inactiveCardColor,
                   ),
                 ),
               ],
@@ -73,52 +93,6 @@ class _InputPageState extends State<InputPage> {
             color: bottomContainerColor,
           )
         ],
-      ),
-    );
-  }
-}
-
-class cardChildColumn extends StatelessWidget {
-  final String text;
-  final IconData iconName;
-  cardChildColumn({this.text, this.iconName});
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          iconName,
-          size: 80,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          text,
-          style: TextStyle(
-            color: Color(0xFF8D8E98),
-            fontSize: 18,
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class ReusableCardWidget extends StatelessWidget {
-  final Color colour;
-  final Widget cardChild;
-  ReusableCardWidget({@required this.colour, this.cardChild});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: cardChild,
-      margin: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: colour,
       ),
     );
   }
